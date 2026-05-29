@@ -11,9 +11,14 @@ const catalogoJugadores = [
     { id: 10, nombre: "Moises Caicedo", equipo: "Ecuador", rareza: "comun", foto: "🇪🇨" }
 ];
 
-// --- MODIFICADO: Intentar cargar datos previos guardados en el navegador ---
-let sobresRestantes = parseInt(localStorage.getItem("sobresRestantes")) ?? 3;
-if (isNaN(sobresRestantes)) sobresRestantes = 3; // Validación por seguridad
+// --- CORRECCIÓN SEGURA DE LOCALSTORAGE ---
+let guardadoSobres = localStorage.getItem("sobresRestantes");
+let sobresRestantes = (guardadoSobres !== null) ? parseInt(guardadoSobres) : 3;
+
+// Si por alguna razón el navegador guardó algo corrupto, lo obligamos a ser 3
+if (isNaN(sobresRestantes)) {
+    sobresRestantes = 3;
+}
 
 let cromosObtenidos = JSON.parse(localStorage.getItem("cromosObtenidos")) || [];
 
@@ -23,7 +28,6 @@ const botonAbrir = document.getElementById("btn-abrir-sobre");
 const botonReiniciar = document.getElementById("btn-reiniciar-dia");
 const textoContador = document.getElementById("sobres-disponibles");
 
-// Función para actualizar el texto del contador en pantalla y deshabilitar botón si es 0
 function actualizarInterfazContador() {
     textoContador.innerText = `Sobres disponibles hoy: ${sobresRestantes}`;
     if (sobresRestantes <= 0) {
@@ -35,7 +39,6 @@ function actualizarInterfazContador() {
     }
 }
 
-// Inicializa la estructura del álbum fijándose si el jugador ya estaba obtenido antes
 function inicializarAlbum() {
     contenedorAlbum.innerHTML = "";
     catalogoJugadores.forEach(jugador => {
@@ -43,7 +46,6 @@ function inicializarAlbum() {
         casilla.classList.add("casilla-album");
         casilla.id = `album-jugador-${jugador.id}`;
         
-        // MODIFICADO: Si el cromo ya estaba guardado en LocalStorage, se dibuja ya pegado
         if (cromosObtenidos.includes(jugador.id)) {
             casilla.classList.add("pegada");
             casilla.innerHTML = `
@@ -52,7 +54,6 @@ function inicializarAlbum() {
                 <div style="font-size: 0.6rem; color: #777;">${jugador.equipo}</div>
             `;
         } else {
-            // Si no lo tiene, se dibuja la silueta vacía
             casilla.innerHTML = `
                 <div class="foto-album" style="opacity: 0.2; font-size: 2rem;">👤</div>
                 <div class="nombre-album">${jugador.nombre}</div>
@@ -71,8 +72,6 @@ function procesarCromo(jugador, tarjetaVisual) {
         tarjetaVisual.querySelector(".cara-delantera").appendChild(indicadorRepetido);
     } else {
         cromosObtenidos.push(jugador.id);
-        
-        // NUEVO: Guardar la lista actualizada de cromos en la memoria del navegador
         localStorage.setItem("cromosObtenidos", JSON.stringify(cromosObtenidos));
 
         const casillaEspecifica = document.getElementById(`album-jugador-${jugador.id}`);
@@ -123,8 +122,6 @@ function abrirSobre() {
     }
 
     sobresRestantes--;
-    
-    // NUEVO: Guardar los sobres restantes en la memoria del navegador
     localStorage.setItem("sobresRestantes", sobresRestantes);
     actualizarInterfazContador();
 
@@ -136,12 +133,14 @@ function abrirSobre() {
     }
 }
 
-// Reiniciar el día limpiando o reseteando los valores
 botonReiniciar.addEventListener("click", () => {
     sobresRestantes = 3;
     localStorage.setItem("sobresRestantes", sobresRestantes);
     actualizarInterfazContador();
 });
+
+// Asignar evento al botón obligatoriamente
+botonAbrir.onclick = abrirSobre;
 
 // Ejecución inicial
 actualizarInterfazContador();
