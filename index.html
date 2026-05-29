@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Álbum Virtual - Prototipo</title>
+    <title>Mi Álbum Virtual - Panini Style</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,32 +11,65 @@
     <header>
         <h1>🏆 Mi Álbum Virtual 2026</h1>
         <p id="sobres-disponibles">Sobres disponibles hoy: 3</p>
-        
-        <button id="btn-abrir-sobre">🛍️ Abrir Sobre Nuevo (5 Cartas)</button>
-        <button id="btn-reiniciar-dia" style="background-color: #555; font-size: 0.8rem; padding: 5px 10px;">🔄 Recargar Sobres (Simular mañana)</button>
+        <button id="btn-reiniciar-dia" style="background-color: #555; font-size: 0.8rem; padding: 5px 10px; margin-top: 5px;">🔄 Recargar Sobres (Simular mañana)</button>
     </header>
 
+    <!-- MENÚ DE NAVEGACIÓN ESTILO PANINI APP -->
+    <nav class="menu-panini">
+        <button class="tab-btn activo" onclick="cambiarPantalla('pantalla-sobres')">ABRIR SOBRES</button>
+        <button class="tab-btn" onclick="cambiarPantalla('pantalla-repetidas')">MIS CROMOS (REPETIDAS)</button>
+        <button class="tab-btn" onclick="cambiarPantalla('pantalla-album')">MI ÁLBUM</button>
+    </nav>
+
     <main>
-        <h2>📦 Tus cartas del sobre:</h2>
-        <div id="contenedor-sobres" class="grid-cartas" style="min-height: 320px; display: flex; align-items: center; justify-content: center;"></div>
-
-        <hr style="border: 1px solid #e94560; margin: 40px 0; opacity: 0.3;">
-
-        <div class="seccion-repetidas" style="text-align: center; margin: 30px 0; padding: 20px; background-color: #16213e; border-radius: 10px; border: 1px solid #e94560;">
-            <h2>🔄 Mis Cartas Repetidas</h2>
-            <p id="contador-repetidas">Tienes 0 cartas repetidas</p>
-            <button id="btn-intercambiar" style="background-color: #0f3460; color: white; border: none; padding: 12px 24px; border-radius: 25px; cursor: not-allowed; font-weight: bold; transition: background-color 0.2s;" disabled>
-                Canjear 3 Repetidas por 1 Sobre
-            </button>
-            <div id="contenedor-repetidas" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px;"></div>
+        <!-- SECCIÓN 1: ABRIR SOBRES -->
+        <div id="pantalla-sobres" class="seccion-pantalla activa">
+            <div style="text-align: center; margin-bottom: 15px;">
+                <button id="btn-abrir-sobre" style="padding: 12px 24px; font-size: 1.1rem; background-color: #e94560; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer;">🛍️ Obtener Sobre Nuevo (5 Cartas)</button>
+            </div>
+            <h2>📦 Tus cartas del sobre:</h2>
+            <div id="contenedor-sobres" class="grid-cartas" style="min-height: 320px; display: flex; align-items: center; justify-content: center;"></div>
         </div>
 
-        <hr style="border: 1px solid #e94560; margin: 40px 0; opacity: 0.3;">
+        <!-- SECCIÓN 2: MIS CROMOS / REPETIDAS -->
+        <div id="pantalla-repetidas" class="seccion-pantalla">
+            <div class="seccion-repetidas" style="text-align: center; padding: 20px; background-color: #16213e; border-radius: 10px; border: 1px solid #e94560;">
+                <h2>🔄 Zona de Intercambio</h2>
+                <p id="contador-repetidas">Tienes 0 cartas repetidas</p>
+                <button id="btn-intercambiar" style="background-color: #0f3460; color: white; border: none; padding: 12px 24px; border-radius: 25px; cursor: not-allowed; font-weight: bold; transition: background-color 0.2s;" disabled>
+                    Canjear 3 Repetidas por 1 Sobre
+                </button>
+                <div id="contenedor-repetidas" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px;"></div>
+            </div>
+        </div>
 
-        <h2>📖 Mi Álbum de Colección</h2>
-        <div id="contenedor-album" class="grid-album"></div>
+        <!-- SECCIÓN 3: MI ÁLBUM -->
+        <div id="pantalla-album" class="seccion-pantalla">
+            <h2>📖 Mi Álbum de Colección</h2>
+            <div id="contenedor-album" class="grid-album"></div>
+        </div>
     </main>
 
+    <!-- FUNCIÓN DE NAVEGACIÓN EN TIEMPO REAL -->
+    <script>
+        function cambiarPantalla(idPantalla) {
+            // Ocultar todas las pantallas
+            const pantallas = document.querySelectorAll('.seccion-pantalla');
+            pantallas.forEach(p => p.classList.remove('activa'));
+
+            // Desactivar todos los botones del menú
+            const botones = document.querySelectorAll('.tab-btn');
+            botones.forEach(b => b.classList.remove('activo'));
+
+            // Mostrar la pantalla seleccionada
+            document.getElementById(idPantalla).classList.add('activa');
+
+            // Activar el botón correspondiente
+            const botonActivo = Array.from(botones).find(b => b.getAttribute('onclick').includes(idPantalla));
+            if (botonActivo) botonActivo.classList.add('activo');
+        }
+    </script>
+    
     <script src="script.js"></script>
 </body>
 </html>

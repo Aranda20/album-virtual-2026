@@ -1,173 +1,252 @@
-/* Configuraciones generales del diseño */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1a1a2e;
-    color: #fff;
-    text-align: center;
+/* --- CONFIGURACIÓN GENERAL Y PALETA DE COLORES --- */
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.grid-cartas {
+body {
+    background-color: #0f1123;
+    color: #ffffff;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+header {
+    background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid #e94560;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #e94560;
+    font-weight: bold;
+}
+
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    color: #fff;
+    margin: 20px 0;
+    font-weight: 600;
+    border-left: 4px solid #e94560;
+    padding-left: 10px;
+}
+
+/* --- NUEVO: MENÚ DE NAVEGACIÓN ESTILO PANINI APP --- */
+.menu-panini {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 40px;
+    background-color: #1a1a2e;
+    padding: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 10px;
+    border-bottom: 2px solid #e94560;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 
-/* --- EL EFECTO 3D --- */
+.tab-btn {
+    background-color: #16213e;
+    color: #b5b5c3;
+    border: 2px solid #0f3460;
+    padding: 10px 22px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-/* Contenedor principal de la carta (establece el espacio 3D) */
+.tab-btn:hover {
+    background-color: #e94560;
+    color: #fff;
+    border-color: #fff;
+}
+
+.tab-btn.activo {
+    background-color: #e94560;
+    color: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 12px rgba(233, 69, 96, 0.7);
+}
+
+/* --- NUEVO: CONTROL DE PANTALLAS (SPA) --- */
+.seccion-pantalla {
+    display: none; /* Oculta las pantallas inactivas */
+    animation: cambiarVentana 0.4s ease-out forwards;
+}
+
+.seccion-pantalla.activa {
+    display: block; /* Muestra solo la pestaña activa */
+}
+
+@keyframes cambiarVentana {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CONTENEDORES Y REJILLAS (GRIDS) --- */
+.grid-cartas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.grid-album {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* --- DISEÑO DE LAS CARTAS (EFECTO 3D FLIP) --- */
 .carta-contenedor {
-    width: 160px;
-    height: 240px;
-    perspective: 1000px; /* Crucial para el efecto de profundidad */
+    width: 150px;
+    height: 220px;
+    perspective: 1000px;
     cursor: pointer;
 }
 
-/* El objeto interno que realmente va a girar */
 .carta-interior {
-    position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
+    position: relative;
+    transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d; /* Permite que los hijos hereden el espacio 3D */
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border-radius: 10px;
 }
 
-/* Clase que aplicaremos con JavaScript al hacer clic */
 .carta-contenedor.volteada .carta-interior {
     transform: rotateY(180deg);
 }
 
-/* Propiedades comunes para la cara delantera y trasera */
-.cara-delantera, .cara-trasera {
+.cara-trasera, .cara-delantera {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden; /* Oculta la cara opuesta al girar */
+    backface-visibility: hidden;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid #e94560;
+    border: 2px solid #fff;
 }
 
-/* Cara Trasera (El reverso del cromo antes de abrirse) */
+/* Reverso de la carta (Cerrada) */
 .cara-trasera {
     background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-    color: #e94560;
+    color: #fff;
     font-weight: bold;
     font-size: 1.2rem;
+    letter-spacing: 2px;
+    border-color: #e94560;
 }
 
-/* Cara Delantera (El jugador revelado) */
+/* Frente de la carta (Revelada) */
 .cara-delantera {
     background-color: #ffffff;
-    color: #333;
-    transform: rotateY(180deg); /* Se inicializa invertida para que al girar quede al derecho */
+    color: #1a1a2e;
+    transform: rotateY(180deg);
     padding: 10px;
-    box-sizing: border-box;
-}
-
-.cara-delantera img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #ddd;
-    margin-bottom: 10px;
+    text-align: center;
 }
 
 .nombre-jugador {
     font-weight: bold;
-    font-size: 1rem;
-    margin: 5px 0;
+    font-size: 0.95rem;
+    margin-top: 8px;
+    color: #1a1a2e;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
+/* --- RARÉZAS DE LOS CROMOS --- */
 .rareza {
-    font-size: 0.8rem;
-    padding: 3px 8px;
-    border-radius: 5px;
+    font-size: 0.7rem;
     text-transform: uppercase;
-}
-
-/* Colores por rareza */
-.comun { background-color: #ddd; color: #333; }
-.oro { background-color: #ffd700; color: #000; font-weight: bold; }
-/* Estilos para el botón de abrir sobres */
-#btn-abrir-sobre {
-    background-color: #e94560;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 1.1rem;
     font-weight: bold;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
-    transition: transform 0.2s, background-color 0.2s;
-    margin-bottom: 20px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-top: 5px;
+    color: #fff;
 }
 
-#btn-abrir-sobre:hover {
-    background-color: #ff527b;
-    transform: scale(1.05); /* Se agranda un poquito al pasar el mouse */
+.rareza.oro {
+    background: linear-gradient(45deg, #d4af37, #f3e5ab);
+    color: #000;
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
 }
 
-#btn-abrir-sobre:active {
-    transform: scale(0.95); /* Se hunde al hacer clic */
-}
-/* Configuración de la cuadrícula del Álbum */
-.grid-album {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #16213e;
-    border-radius: 15px;
-    border: 2px dashed #e94560;
+.rareza.comun {
+    background-color: #808080;
 }
 
-/* Estilo de la casilla del álbum (Cromo no obtenido) */
+/* --- CASILLAS DEL ÁLBUM DE COLECCIÓN --- */
 .casilla-album {
-    width: 120px;
+    background-color: #1a1a2e;
+    border: 2px dashed #0f3460;
     height: 180px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 2px solid #0f3460;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #555;
-    font-size: 0.9rem;
-    transition: all 0.5s ease;
-    box-sizing: border-box;
-    padding: 5px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
-/* Estilo cuando la carta ya está PEGADA en el álbum */
 .casilla-album.pegada {
     background-color: #ffffff;
-    color: #333;
-    border: 2px solid #ffd700; /* Borde dorado si ya la tienes */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: #1a1a2e;
+    border: 2px solid #e94560;
+    box-shadow: 0 4px 10px rgba(233, 69, 96, 0.2);
 }
 
-.casilla-album.pegada .foto-album {
-    font-size: 2.2rem;
+.foto-album {
+    font-size: 2.5rem;
     margin-bottom: 5px;
 }
 
-.casilla-album .nombre-album {
-    font-size: 0.8rem;
+.nombre-album {
+    font-size: 0.85rem;
     font-weight: bold;
-    text-align: center;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- ANIMACIONES ADICIONALES --- */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); text-shadow: 0 0 10px rgba(255,255,255,0.6); }
+    100% { transform: scale(1); }
 }
