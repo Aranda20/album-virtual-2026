@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Álbum Virtual - Prototipo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🏆 Mi Álbum Virtual 2026</h1>
+        <p id="sobres-disponibles">Sobres disponibles hoy: 3</p>
+        
+        <button id="btn-abrir-sobre">🛍️ Abrir Sobre Nuevo (5 Cartas)</button>
+        <button id="btn-reiniciar-dia" style="background-color: #555; font-size: 0.8rem; padding: 5px 10px;">🔄 Recargar Sobres (Simular mañana)</button>
+    </header>
+
+    <main>
+        <h2>📦 Tus cartas del sobre:</h2>
+        <div id="contenedor-sobres" class="grid-cartas"></div>
+
+        <hr style="border: 1px solid #e94560; margin: 40px 0; opacity: 0.3;">
+
+        <h2>📖 Mi Álbum de Colección</h2>
+        <div id="contenedor-album" class="grid-album"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+/* Configuraciones generales del diseño */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a2e;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.grid-cartas {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+/* --- EL EFECTO 3D --- */
+
+/* Contenedor principal de la carta (establece el espacio 3D) */
+.carta-contenedor {
+    width: 160px;
+    height: 240px;
+    perspective: 1000px; /* Crucial para el efecto de profundidad */
+    cursor: pointer;
+}
+
+/* El objeto interno que realmente va a girar */
+.carta-interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d; /* Permite que los hijos hereden el espacio 3D */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Clase que aplicaremos con JavaScript al hacer clic */
+.carta-contenedor.volteada .carta-interior {
+    transform: rotateY(180deg);
+}
+
+/* Propiedades comunes para la cara delantera y trasera */
+.cara-delantera, .cara-trasera {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la cara opuesta al girar */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #e94560;
+}
+
+/* Cara Trasera (El reverso del cromo antes de abrirse) */
+.cara-trasera {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    color: #e94560;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Cara Delantera (El jugador revelado) */
+.cara-delantera {
+    background-color: #ffffff;
+    color: #333;
+    transform: rotateY(180deg); /* Se inicializa invertida para que al girar quede al derecho */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.cara-delantera img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-bottom: 10px;
+}
+
+.nombre-jugador {
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.rareza {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+/* Colores por rareza */
+.comun { background-color: #ddd; color: #333; }
+.oro { background-color: #ffd700; color: #000; font-weight: bold; }
+/* Estilos para el botón de abrir sobres */
+#btn-abrir-sobre {
+    background-color: #e94560;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+    transition: transform 0.2s, background-color 0.2s;
+    margin-bottom: 20px;
+}
+
+#btn-abrir-sobre:hover {
+    background-color: #ff527b;
+    transform: scale(1.05); /* Se agranda un poquito al pasar el mouse */
+}
+
+#btn-abrir-sobre:active {
+    transform: scale(0.95); /* Se hunde al hacer clic */
+}
+/* Configuración de la cuadrícula del Álbum */
+.grid-album {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #16213e;
+    border-radius: 15px;
+    border: 2px dashed #e94560;
+}
+
+/* Estilo de la casilla del álbum (Cromo no obtenido) */
+.casilla-album {
+    width: 120px;
+    height: 180px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px solid #0f3460;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #555;
+    font-size: 0.9rem;
+    transition: all 0.5s ease;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+/* Estilo cuando la carta ya está PEGADA en el álbum */
+.casilla-album.pegada {
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #ffd700; /* Borde dorado si ya la tienes */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.casilla-album.pegada .foto-album {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+.casilla-album .nombre-album {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+}
