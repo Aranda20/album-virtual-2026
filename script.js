@@ -3,8 +3,8 @@ const catalogoJugadores = [
     { id: 1, nombre: "Luis Díaz", equipo: "Colombia", rareza: "oro", foto: "🇨🇴", esImagen: false },
     { id: 2, nombre: "Lionel Messi", equipo: "Argentina", rareza: "oro", foto: "🇦🇷", esImagen: false },
     { id: 3, nombre: "Richard Ríos", equipo: "Colombia", rareza: "comun", foto: "🇨🇴", esImagen: false },
-    { id: 4, nombre: "Fede Valverde", equipo: "Uruguay", rareza: "comun", foto: "imagenes/fede.png", esImagen: true }, // Tu foto local
-    { id: 5, nombre: "Neymar Jr", equipo: "Brasil", rareza: "comun", foto: "imagenes/ney.png", esImagen: true },     // Tu foto local
+    { id: 4, nombre: "Fede Valverde", equipo: "Uruguay", rareza: "comun", foto: "imagenes/fede.webp", esImagen: true }, // Tu foto local
+    { id: 5, nombre: "Neymar Jr", equipo: "Brasil", rareza: "comun", foto: "imagenes/ney.webp", esImagen: true },     // Tu foto local
     { id: 6, nombre: "Vinícius Jr", equipo: "Brasil", rareza: "oro", foto: "🇧🇷", esImagen: false },
     { id: 7, nombre: "James Rodríguez", equipo: "Colombia", rareza: "oro", foto: "🇨🇴", esImagen: false },
     { id: 8, nombre: "Darwin Núñez", equipo: "Uruguay", rareza: "comun", foto: "🇺🇾", esImagen: false },
