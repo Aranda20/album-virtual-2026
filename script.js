@@ -5,7 +5,7 @@ const catalogoJugadores = [
     { id: 3, nombre: "Richard Ríos", equipo: "Colombia", rareza: "comun", foto: "🇨🇴", esImagen: false },
     { id: 4, nombre: "Fede Valverde", equipo: "Uruguay", rareza: "comun", foto: "imagenes/fede.webp", esImagen: true }, // Tu foto local
     { id: 5, nombre: "Neymar Jr", equipo: "Brasil", rareza: "comun", foto: "imagenes/ney.webp", esImagen: true },     // Tu foto local
-    { id: 6, nombre: "Vinícius Jr", equipo: "Brasil", rareza: "oro", foto: "🇧🇷", esImagen: false },
+    { id: 6, nombre: "Mia Khalifa", equipo: "Libano", rareza: "oro", foto: "imagenes/mia.jpg", esImagen: true },     // Tu foto local
     { id: 7, nombre: "James Rodríguez", equipo: "Colombia", rareza: "oro", foto: "🇨🇴", esImagen: false },
     { id: 8, nombre: "Darwin Núñez", equipo: "Uruguay", rareza: "comun", foto: "🇺🇾", esImagen: false },
     { id: 9, nombre: "Emiliano Martínez", equipo: "Argentina", rareza: "comun", foto: "🇦🇷", esImagen: false },
